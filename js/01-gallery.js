@@ -21,12 +21,12 @@ gallery.insertAdjacentHTML('afterbegin', galleryImages);
 
 gallery.addEventListener('click', (e) => {
     e.preventDefault();
-    if (e.target.type !== 'img') return;
+    if (e.target.nodeName !== 'IMG') return;
 
     const instance = basicLightbox.create(`
     <img
     src="${e.target.getAttribute('data-source')}"
-    alt="${e.target.getAttribute('alt')}
+    alt="${e.target.getAttribute('alt')}"
     />`,
         {
             onShow: (instance) => {
@@ -39,4 +39,4 @@ instance.show();
 });
 
 
-console.log(galleryItems);
+// console.log(galleryItems);
