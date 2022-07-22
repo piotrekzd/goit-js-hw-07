@@ -3,12 +3,12 @@ import { galleryItems } from './gallery-items.js';
 const gallery = document.querySelector('.gallery');
 const galleryImages = galleryItems
     .map((image) => {
-        const item = `<div class="gallery_item">
-        <a class="gallery_link" href="${image.original}">
+        const item = `<div class="gallery__item">
+        <a class="gallery__link" href="${image.original}">
         <img
-        class="gallery_image"
+        class="gallery__image"
         src="${image.preview}"
-        data-src=${image.original}"
+        data-source=${image.original}"
         alt="${image.description}"
         />
         </a>
@@ -18,6 +18,25 @@ const galleryImages = galleryItems
     .join(" ");
 
 gallery.insertAdjacentHTML('afterbegin', galleryImages);
+
+gallery.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (e.target.type !== 'img') return;
+
+    const instance = basicLightbox.create(`
+    <img
+    src="${e.target.getAttribute('data-source')}"
+    alt="${e.target.getAttribute('alt')}
+    />`,
+        {
+            onShow: (instance) => {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') instance.close();
+                });
+            }
+        });
+instance.show();
+});
 
 
 console.log(galleryItems);
