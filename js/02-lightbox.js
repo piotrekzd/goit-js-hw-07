@@ -9,7 +9,6 @@ const galleryImages = galleryItems
         class="gallery__image"
         src="${image.preview}"
         alt=${image.description}"
-        title="${image.description}"
         />
         </a>
         </div>`
